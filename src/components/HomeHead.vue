@@ -1,22 +1,23 @@
 <template>
-  <v-container grid-list-xl> 
+  <v-flex > 
+  
+     
      <v-navigation-drawer
       class="blue lighten-3"
       hidden-sm-and-up
       v-model="drawer"
       absolute
       temporary
+      app
       >
       <v-list>
         <v-list-tile
           v-for="item in drawers"
           :key="item.title"
-          
-        >
+          >
           <v-list-tile-action>
             <v-icon >{{ item.icon }}</v-icon>
           </v-list-tile-action>
-  
           <v-list-tile-content>
             <v-list-tile-title><router-link class="router" :to="{path:item.route}">{{ item.title }}</router-link></v-list-tile-title>
           </v-list-tile-content>
@@ -27,7 +28,9 @@
         
       <v-toolbar color="blue">
       <v-toolbar-side-icon class="hidden-md-and-up" @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-      
+          <router-link to="/" class="hidden-sm-and-down">
+          <v-icon >mdi-home</v-icon>
+          </router-link>
           <v-toolbar-title>
            <v-btn flat class="hidden-sm-and-down nav-menu" to="Menu">MENU</v-btn>
           </v-toolbar-title>
@@ -36,7 +39,8 @@
            <v-btn flat>{{ item.text }}</v-btn>
         </v-toolbar-items>
      </v-toolbar>
-     </v-container>
+     </br>
+  </v-flex>
 </template>
 
 <script>

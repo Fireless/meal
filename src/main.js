@@ -6,8 +6,11 @@ import App from './App'
 import router from './router'
 import Vuetify from 'vuetify'
 import '@mdi/font/css/materialdesignicons.css' 
+import Axios from 'axios'
+// import VueAxios from 'vue-axios'
 
 
+Vue.prototype.$axios =Axios
 
 Vue.use(Vuetify,{
   iconfont: 'mdi'
