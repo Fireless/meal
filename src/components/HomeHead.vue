@@ -36,7 +36,7 @@
           </v-toolbar-title>
           <v-spacer></v-spacer>
         <v-toolbar-items v-for="item in items" :key="item.text" class="hidden-sm-and-down">
-           <v-btn flat>{{ item.text }}</v-btn>
+            <router-link :to="{path:item.route}" class="router"><v-toolbar-items><v-btn flat class="bt">{{ item.text }}</v-btn></v-toolbar-items></router-link>
         </v-toolbar-items>
      </v-toolbar>
      </br>
@@ -49,16 +49,17 @@ export default {
     return {
       items: [
         {
-          text: 'Login'
+          text: 'Login',route: '/sign-in'
         },
         {
-          text: 'Register'
+          text: 'Register', route: '/join'
         }
       ],
       drawers: [
         { title: 'Home', icon: 'mdi-home',route: "/" },
         { title: 'Menu', icon: 'mdi-tor', route: '/Menu' },
-        { title: 'Admin', icon: 'mdi-tree' }
+        { title: 'Login', icon: 'mdi-tree' , route: '/sign-in'},
+        { title: 'Register', icon: 'mdi-cake', route: '/join'}
       ],
       drawer: null
     }
@@ -69,6 +70,10 @@ export default {
 <style scoped>
 .router{
   text-decoration: none;
+}
+
+.bt{
+  padding-top: 20px;
 }
 </style>
 
