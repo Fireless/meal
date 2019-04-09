@@ -40,7 +40,6 @@
   
                   <v-card-actions>
                      Price: {{ card.price}}
-                     <span>{{ mealCount(card) }}</span>
                     <v-spacer></v-spacer>
                     <v-btn icon v-on:click="addmealAction(card)">
                       <v-icon>mdi-silverware</v-icon>
@@ -178,17 +177,7 @@ export default {
 //            SumPrice: 0,
             activeBtn: 1,
             showNav: true,
-            cartx: 1,
-      mealCount: function(m){
-        console.log('m.name = ' + m.name)
-        const vc = this; 
-        const group = _.groupBy(this.cart, "name")
-        const f = group[m.name];
-
-        return f?f.length:'';
-
-      },
-
+            cartx: 1
         }
     },
     computed : {
@@ -236,21 +225,23 @@ console.log('sum = ' + sum)
         if( exist ){
           console.log( 'will be remove ' + card.name )
 
-//          let removed = 0
-//
-//          _.remove(this.cart, (c) => {
-//            if( c.name === card.name ){
-//              removed ++;
-//            }
-//            return removed === 1;
-//          })
+          let removed = 0
 
+          _.remove(this.cart, (c) => {
+            if( c.name === card.name ){
+              removed ++;
+            }
+            return removed === 1;
+          })
+
+
+          this.cart.pop();
 
           const index = this.cart.findIndex(function(val,idx){
             return val.name ===  card.name;
           })
-          if( typeof index !== 'undefined'){
-            this.cart.splice(index, 1)
+          if( index ){
+            this.cart.slice(index, 1)
 
           }
 

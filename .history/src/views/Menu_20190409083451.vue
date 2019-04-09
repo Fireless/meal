@@ -2,17 +2,12 @@
     <v-layout justify-center>
       <v-flex xs12 sm6>
         <div>SumPrice = <span>{{SumPrice}}</span></div>
-        <!-- <v-flex v-for="item in cart" :key="index">
-         <v-list>
-           <span>{{ cart.name }}</span>
-         </v-list>
-       </v-flex> -->
         <v-card>
           <v-container
             fluid
             grid-list-md
           >
-            <v-layout row wrap>. 2
+            <v-layout row wrap>
               <v-flex
                 v-for="card in meal"
                 :key="card.name"
@@ -40,7 +35,6 @@
   
                   <v-card-actions>
                      Price: {{ card.price}}
-                     <span>{{ mealCount(card) }}</span>
                     <v-spacer></v-spacer>
                     <v-btn icon v-on:click="addmealAction(card)">
                       <v-icon>mdi-silverware</v-icon>
@@ -63,14 +57,17 @@
       height="200px"
       app
     >
-       
+       <v-flex v-for="item in cart" :key="index">
+         <v-list>
+           <span>{{ item.name }} </span>
+         </v-list>
+       </v-flex>
         <v-bottom-nav
         :active.sync="activeBtn"
         :value="showNav"
         absolute
         color="transparent"
       >
-      
       <div>SumPrice = <span>{{SumPrice}}</span></div>
         <v-btn flat color="teal" @click.stop="cartx = !cartx"> 
         <v-icon>mdi-cart</v-icon>
@@ -177,18 +174,7 @@ export default {
             ],
 //            SumPrice: 0,
             activeBtn: 1,
-            showNav: true,
-            cartx: 1,
-      mealCount: function(m){
-        console.log('m.name = ' + m.name)
-        const vc = this; 
-        const group = _.groupBy(this.cart, "name")
-        const f = group[m.name];
-
-        return f?f.length:'';
-
-      },
-
+            showNav: true
         }
     },
     computed : {
@@ -199,17 +185,13 @@ export default {
         const c = this.cart;
         var sum = 0;
 
-console.log('sum = ' + sum)
-
         for(var i=0,len=c.length;i<len;i++) {
           const price = c[i].price.replace('$','')
           sum += (price*1);
         }
 
-console.log('sum = ' + sum)
         // vuex.state.tax percent
         // sum += sum * (vuex.state.tax)
-
         return sum;
       },
       // addmeal :function(a, b, c ) {
@@ -236,28 +218,19 @@ console.log('sum = ' + sum)
         if( exist ){
           console.log( 'will be remove ' + card.name )
 
-//          let removed = 0
-//
-//          _.remove(this.cart, (c) => {
-//            if( c.name === card.name ){
-//              removed ++;
-//            }
-//            return removed === 1;
-//          })
+          let removed = 0
 
-
-          const index = this.cart.findIndex(function(val,idx){
-            return val.name ===  card.name;
+          _.remove(this.cart, (c) => {
+            if( c.name === card.name ){
+              removed ++;
+            }
+            return removed === 1;
           })
-          if( typeof index !== 'undefined'){
-            this.cart.splice(index, 1)
 
+          exist = _.find(this.cart, { name: card.name })
+          if(exist === 0){
+            alert('this is logical error, not remove ' + card.name )
           }
-
-//          exist = _.find(this.cart, { name: card.name })
-//          if(exist === 0){
-//            alert('this is logical error, not remove ' + card.name )
-//          }
         }
 
       }

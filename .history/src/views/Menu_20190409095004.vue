@@ -182,14 +182,8 @@ export default {
       mealCount: function(m){
         console.log('m.name = ' + m.name)
         const vc = this; 
-        const group = _.groupBy(this.cart, "name")
-        const f = group[m.name];
-
-        return f?f.length:'';
 
       },
-
-        }
     },
     computed : {
       CartCount: function(){

@@ -178,20 +178,14 @@ export default {
 //            SumPrice: 0,
             activeBtn: 1,
             showNav: true,
-            cartx: 1,
-      mealCount: function(m){
-        console.log('m.name = ' + m.name)
-        const vc = this; 
-        const group = _.groupBy(this.cart, "name")
-        const f = group[m.name];
-
-        return f?f.length:'';
-
-      },
-
+            cartx: 1
         }
     },
     computed : {
+      MealCount: function(m){
+        const vc = this;
+
+      },
       CartCount: function(){
         return this.cart.length;
       },

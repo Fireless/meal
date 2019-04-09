@@ -40,7 +40,6 @@
   
                   <v-card-actions>
                      Price: {{ card.price}}
-                     <span>{{ mealCount(card) }}</span>
                     <v-spacer></v-spacer>
                     <v-btn icon v-on:click="addmealAction(card)">
                       <v-icon>mdi-silverware</v-icon>
@@ -178,17 +177,7 @@ export default {
 //            SumPrice: 0,
             activeBtn: 1,
             showNav: true,
-            cartx: 1,
-      mealCount: function(m){
-        console.log('m.name = ' + m.name)
-        const vc = this; 
-        const group = _.groupBy(this.cart, "name")
-        const f = group[m.name];
-
-        return f?f.length:'';
-
-      },
-
+            cartx: 1
         }
     },
     computed : {

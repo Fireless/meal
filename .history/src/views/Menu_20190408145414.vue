@@ -2,17 +2,12 @@
     <v-layout justify-center>
       <v-flex xs12 sm6>
         <div>SumPrice = <span>{{SumPrice}}</span></div>
-        <!-- <v-flex v-for="item in cart" :key="index">
-         <v-list>
-           <span>{{ cart.name }}</span>
-         </v-list>
-       </v-flex> -->
         <v-card>
           <v-container
             fluid
             grid-list-md
           >
-            <v-layout row wrap>. 2
+            <v-layout row wrap>
               <v-flex
                 v-for="card in meal"
                 :key="card.name"
@@ -40,12 +35,11 @@
   
                   <v-card-actions>
                      Price: {{ card.price}}
-                     <span>{{ mealCount(card) }}</span>
                     <v-spacer></v-spacer>
                     <v-btn icon v-on:click="addmealAction(card)">
                       <v-icon>mdi-silverware</v-icon>
                     </v-btn>
-                    <v-btn icon v-on:click="removemealAction(card)">
+                    <v-btn icon>
                       <v-icon>mdi-close-box-outline</v-icon>
                     </v-btn>
                     <v-btn icon>
@@ -57,22 +51,20 @@
             </v-layout>
           </v-container>
         </v-card>
-<!--菜单列表-->  
+<!--菜单列表-->
       <v-card
       class="hide-overflow"
       height="200px"
       app
     >
-       
+    
         <v-bottom-nav
         :active.sync="activeBtn"
         :value="showNav"
         absolute
         color="transparent"
       >
-      
-      <div>SumPrice = <span>{{SumPrice}}</span></div>
-        <v-btn flat color="teal" @click.stop="cartx = !cartx"> 
+        <v-btn flat color="teal" @click.stop="cart = !cart"> 
         <v-icon>mdi-cart</v-icon>
         </v-btn>
 
@@ -85,24 +77,20 @@
     <v-navigation-drawer
       class="blue"
       hidden-sm-and-up
+      
+
       absolute
-      v-model='cartx'
       temporary
       app
       >
-     <v-list>
-       <v-list-tile>
-         <v-list-tile-title>
-         {{SumPrice}}
-         </v-list-tile-title>
-       </v-list-tile>
-     </v-list>
+      <v-list>
+        <v-list-tile-content>{{SumPrice}}</v-list-tile-content>
+      </v-list>
     </v-navigation-drawer>
       </v-flex>
 
 
-         
-     
+      
     </v-layout>
 
         <!-- <v-layout row wrap>
@@ -139,7 +127,8 @@
           </v-card>
         </v-flex>
       </v-layout> -->
-    
+       
+      
       
        
     
@@ -156,7 +145,7 @@
  * ] 
  * 
  ****/
-import _ from 'lodash'
+
 export default {
     name: 'Menu',
     data () {
@@ -177,18 +166,7 @@ export default {
             ],
 //            SumPrice: 0,
             activeBtn: 1,
-            showNav: true,
-            cartx: 1,
-      mealCount: function(m){
-        console.log('m.name = ' + m.name)
-        const vc = this; 
-        const group = _.groupBy(this.cart, "name")
-        const f = group[m.name];
-
-        return f?f.length:'';
-
-      },
-
+            showNav: true
         }
     },
     computed : {
@@ -199,28 +177,21 @@ export default {
         const c = this.cart;
         var sum = 0;
 
-console.log('sum = ' + sum)
-
         for(var i=0,len=c.length;i<len;i++) {
           const price = c[i].price.replace('$','')
           sum += (price*1);
         }
-
-console.log('sum = ' + sum)
-        // vuex.state.tax percent
-        // sum += sum * (vuex.state.tax)
-
         return sum;
       },
-      // addmeal :function(a, b, c ) {
+      addmeal :function(a, b, c ) {
 
-      //   console.log("a = " + a)
-      //   console.log("b = " + b)
-      //   console.log("c = " + c)
+        console.log("a = " + a)
+        console.log("b = " + b)
+        console.log("c = " + c)
 
-      //   this.SumPrice +=item.price 
-      //   return SumPrice 
-      // }
+        this.SumPrice +=item.price 
+        return SumPrice 
+      }
     },
     methods :{
       addmealAction: function(card) {
@@ -228,41 +199,8 @@ console.log('sum = ' + sum)
 //        this.SumPrice +=item.price 
 //        return SumPrice 
 
-        // SumPrice logical here!！
-      },
-       removemealAction: function(card) {
-        let exist = _.find(this.cart, { name: card.name })
-
-        if( exist ){
-          console.log( 'will be remove ' + card.name )
-
-//          let removed = 0
-//
-//          _.remove(this.cart, (c) => {
-//            if( c.name === card.name ){
-//              removed ++;
-//            }
-//            return removed === 1;
-//          })
-
-
-          const index = this.cart.findIndex(function(val,idx){
-            return val.name ===  card.name;
-          })
-          if( typeof index !== 'undefined'){
-            this.cart.splice(index, 1)
-
-          }
-
-//          exist = _.find(this.cart, { name: card.name })
-//          if(exist === 0){
-//            alert('this is logical error, not remove ' + card.name )
-//          }
-        }
-
       }
     }
-     
 }
 </script>
 
